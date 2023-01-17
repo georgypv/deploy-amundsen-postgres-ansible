@@ -12,6 +12,7 @@ services:
     volumes:
        - ./pg-data:/data/postgres
        - ./init_script.sql:/docker-entrypoint-initdb.d/init_script.sql
+       - ./titanic.csv:/titanic.csv
     ports:
       - "5432:5432"
     networks:

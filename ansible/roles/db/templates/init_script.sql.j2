@@ -1,23 +1,22 @@
-CREATE DATABASE IF NOT EXISTS my_data;
-CREATE TABLE IF NOT EXISTS my_data.titanic (
+CREATE SCHEMA my_data;
+CREATE TABLE my_data.titanic (
     PassengerId integer PRIMARY KEY,
     Survived smallint,
     Pclass smallint,
     Name varchar(100),
     Sex varchar(10),
-    Age smallint,
+    Age float,
     SibSp smallint,
-    Parch varchar(100),
-    Ticket numeric(3,5),
+    Parch smallint,
+    Ticket varchar(100),
+    Fare  float,
     Cabin varchar(100),
     Embarked varchar(10)
 )
 ;
-COPY my_data.titanic FROM '/data/postgres/titanic.csv' DELIMITER ',' HEADER TRUE CSV;
+COPY my_data.titanic FROM '/titanic.csv' DELIMITER ',' CSV HEADER;
 
-
-
-CREATE TABLE IF NOT EXISTS my_data.metrics (
+CREATE TABLE my_data.metrics (
     id integer,
     val1 numeric(7,5),
     val2 numeric(7,5),
