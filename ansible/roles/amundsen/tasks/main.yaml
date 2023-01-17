@@ -1,0 +1,18 @@
+---
+- name: Clone Amundsen repo from Github
+  become: true
+  git:
+    repo: https://github.com/amundsen-io/amundsen.git
+    dest: /src/amundsen
+    clone: yes
+    update: yes
+
+- name: Start Amundsen via docker-compose
+  community.docker.docker_compose:
+    project_src: /src/amundsen/
+    files:
+      - docker-amundsen.yml
+  register: output
+
+
+

@@ -1,0 +1,32 @@
+---
+- name: Create a directory for Postgres .yaml
+  file:
+    path: /src/postgres/
+    state: directory
+
+- name: Create a sub-directory for Postgres files
+  file:
+    path: /src/postgres/pg-data
+    state: directory
+
+- name: Download sample dataset in csv format
+  get_url:
+    url: https://raw.githubusercontent.com/datasciencedojo/datasets/master/titanic.csv
+    dest: /src/postgres/titanic.csv
+
+- name: Copy docker-compose.yaml for Postgres
+  template:
+    src: docker-postgres.yaml.j2
+    dest: /src/postgres/docker-postgres.yaml
+
+- name: Copy init_script.sql for Postgres
+  template:
+    src: init_script.sql.j2
+    dest: /src/postgres/init_script.sql
+
+- name: Set up Postgres with docker-compose
+  community.docker.docker_compose:
+      project_src: /src/postgres/
+      files:
+        - docker-postgres.yaml
+  register: output

@@ -1,0 +1,33 @@
+CREATE DATABASE IF NOT EXISTS my_data;
+CREATE TABLE IF NOT EXISTS my_data.titanic (
+    PassengerId integer PRIMARY KEY,
+    Survived smallint,
+    Pclass smallint,
+    Name varchar(100),
+    Sex varchar(10),
+    Age smallint,
+    SibSp smallint,
+    Parch varchar(100),
+    Ticket numeric(3,5),
+    Cabin varchar(100),
+    Embarked varchar(10)
+)
+;
+COPY my_data.titanic FROM '/data/postgres/titanic.csv' DELIMITER ',' HEADER TRUE CSV;
+
+
+
+CREATE TABLE IF NOT EXISTS my_data.metrics (
+    id integer,
+    val1 numeric(7,5),
+    val2 numeric(7,5),
+    cat varchar(100)
+);
+
+INSERT INTO my_data.metrics
+SELECT
+    generate_series(1, 10000) as id,
+    random() as val1,
+    random() as val2,
+    (array['A', 'B', 'C'])[floor(random() * 3 + 1)] as cat
+;
