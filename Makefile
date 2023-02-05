@@ -1,5 +1,5 @@
 up: cloud_up
-	./scripts/run_ansible.sh
+	./scripts/run_ansible.sh -v
 
 cloud_up: acquire_tokens
 	./scripts/cloud_up.sh

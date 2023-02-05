@@ -9,5 +9,17 @@ sleep 1
 done
 
 echo "Setting up hosts with Ansible..."
-ansible-playbook playbook.yaml
+if [[ $# -gt 0 ]]
+then
+  echo "Found parameter(s) for run_ansible.sh!"
+  if [[ "$1" = "-v" ]]
+  then
+    echo "Setting logging level to verbose!"
+    ansible-playbook -v playbook.yaml
+  else
+    ansible-playbook playbook.yaml
+  fi
+  else
+    ansible-playbook playbook.yaml
+fi
 cd ..

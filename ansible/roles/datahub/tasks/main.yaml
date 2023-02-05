@@ -1,0 +1,38 @@
+---
+- name: Install DataHub CLI
+  pip:
+    name:
+      - pip
+      - wheel
+      - setuptools
+      - acryl-datahub
+
+- name: Create a sub-directory for DataHub files
+  file:
+    path: /src/datahub
+    state: directory
+
+
+- name: Move docker-compose.yaml to host
+  template:
+    src: docker-compose.yaml.j2
+    dest: /src/datahub/docker-compose.yaml
+
+- name: Print DataHub version to stdout
+  command: "datahub version"
+  register: datahub_version
+
+- name: Debug DataHub version
+  debug:
+    msg: "{{ datahub_version.stdout }}"
+
+- name: Set up DataHub with docker-compose
+  community.docker.docker_compose:
+      project_src: /src/datahub
+      files:
+        - docker-compose.yaml
+  register: output
+
+
+- name: Ingest sample data
+  shell: "datahub docker ingest-sample-data"

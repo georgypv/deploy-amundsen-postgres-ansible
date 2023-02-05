@@ -16,6 +16,7 @@ terraform.rc
 
 #ansible
 ansible/inventory.ini
+ansible/group_vars/all
 secrets
 all
 

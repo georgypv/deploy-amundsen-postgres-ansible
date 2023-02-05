@@ -12,7 +12,7 @@ $node2
 [db]
 $node1
 
-[amundsen]
+[datahub]
 $node2
 EOF
 echo "Got hosts for Ansible inventory"

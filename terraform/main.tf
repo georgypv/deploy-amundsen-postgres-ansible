@@ -29,7 +29,7 @@ resource "yandex_compute_instance" "node-1" {
 
   resources {
     core_fraction = 100
-    cores         = 2
+    cores         = 4
     memory        = 8
   }
 
@@ -63,8 +63,8 @@ resource "yandex_compute_instance" "node-2" {
 
   resources {
     core_fraction = 100
-    cores         = 2
-    memory        = 8
+    cores         = 4
+    memory        = 16
   }
 
   boot_disk {
